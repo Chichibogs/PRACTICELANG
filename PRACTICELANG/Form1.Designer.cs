@@ -74,6 +74,11 @@
 			this.label22 = new System.Windows.Forms.Label();
 			this.nooftardyTxtbox = new System.Windows.Forms.TextBox();
 			this.saveBtn = new System.Windows.Forms.Button();
+			this.button1 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
+			this.txtSearch = new System.Windows.Forms.TextBox();
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// companynameTxtbox
@@ -361,7 +366,7 @@
 			// 
 			// calculateBtn
 			// 
-			this.calculateBtn.Location = new System.Drawing.Point(601, 26);
+			this.calculateBtn.Location = new System.Drawing.Point(430, 290);
 			this.calculateBtn.Name = "calculateBtn";
 			this.calculateBtn.Size = new System.Drawing.Size(105, 23);
 			this.calculateBtn.TabIndex = 34;
@@ -451,7 +456,7 @@
 			// 
 			// saveBtn
 			// 
-			this.saveBtn.Location = new System.Drawing.Point(601, 52);
+			this.saveBtn.Location = new System.Drawing.Point(319, 358);
 			this.saveBtn.Name = "saveBtn";
 			this.saveBtn.Size = new System.Drawing.Size(105, 23);
 			this.saveBtn.TabIndex = 45;
@@ -459,11 +464,50 @@
 			this.saveBtn.UseVisualStyleBackColor = true;
 			this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
 			// 
+			// button1
+			// 
+			this.button1.Location = new System.Drawing.Point(12, 358);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(105, 23);
+			this.button1.TabIndex = 46;
+			this.button1.Text = "SEARCH";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// button2
+			// 
+			this.button2.Location = new System.Drawing.Point(430, 358);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(105, 23);
+			this.button2.TabIndex = 47;
+			this.button2.Text = "EXIT";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// txtSearch
+			// 
+			this.txtSearch.Location = new System.Drawing.Point(123, 360);
+			this.txtSearch.Name = "txtSearch";
+			this.txtSearch.Size = new System.Drawing.Size(190, 20);
+			this.txtSearch.TabIndex = 48;
+			// 
+			// dataGridView1
+			// 
+			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView1.Location = new System.Drawing.Point(12, 387);
+			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.Size = new System.Drawing.Size(523, 199);
+			this.dataGridView1.TabIndex = 49;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(977, 598);
+			this.ClientSize = new System.Drawing.Size(561, 598);
+			this.Controls.Add(this.dataGridView1);
+			this.Controls.Add(this.txtSearch);
+			this.Controls.Add(this.button2);
+			this.Controls.Add(this.button1);
 			this.Controls.Add(this.saveBtn);
 			this.Controls.Add(this.label22);
 			this.Controls.Add(this.nooftardyTxtbox);
@@ -513,6 +557,7 @@
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.Form1_Load);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -566,6 +611,10 @@
 		private System.Windows.Forms.Label label22;
 		private System.Windows.Forms.TextBox nooftardyTxtbox;
 		private System.Windows.Forms.Button saveBtn;
+		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.TextBox txtSearch;
+		private System.Windows.Forms.DataGridView dataGridView1;
 	}
 }
 

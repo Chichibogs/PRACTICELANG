@@ -14,19 +14,50 @@ namespace PRACTICELANG
 {
 	public partial class Form1 : Form
 	{
+		//variables
 		private double basicpay, rateofhr, payday, overtime, overtimehrs, absences, noabsences, tardy, notardy, gross, honor, hdmf, sss_contrib, phil_contrib, deduction, netpay;
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			string searchValue = txtSearch.Text.Trim();
+
+			for (int i = 0; i < dataGridView1.Rows.Count; i++)
+			{
+				if (dataGridView1.Rows[i].IsNewRow)
+					continue;
+
+				string employeeId = dataGridView1.Rows[i].Cells["Department"].Value?.ToString() ?? "";
+
+				if (employeeId.Equals(searchValue, StringComparison.OrdinalIgnoreCase))
+				{
+					dataGridView1.ClearSelection();
+					dataGridView1.Rows[i].Selected = true;
+					dataGridView1.CurrentCell = dataGridView1.Rows[i].Cells["Department"];
+
+				}
+			}
+
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			this.Close();
+		}
 
 		private void saveBtn_Click(object sender, EventArgs e)
 		{
+			//DATABASE 
 			connection.Open();
 
 			sql = "INSERT INTO quizTbl (CompanyName, Department,EmployeeCode, Cutoff, EmployeeName, PayPeriod, BasicPay, Overtime, Absences, Honorarium, Tardy, GrossEarning, TotalDeduction, NetPay) VALUES ('" + companynameTxtbox.Text + "','" + departmentTxtbox.Text + "','" + employeecodeTxtbox.Text + "','" + cutoffTxtbox.Text + "','" + employeenameTxtbox.Text + "','" + payperiodTxtbox.Text + 
 			"','" + basicpayTxtbox.Text + "','" + overtimeTxtbox.Text + "','" + absencesTxtbox.Text + "','" + honorariumTxtbox.Text + "','" + tardyTxtbox.Text + "','" + grossearningsTxtbox.Text + "','" + deductionsTxtbox.Text + "','" + netpayTxtbox.Text + "')";
 			command = new SqlCommand(sql, connection);
+
 			command.CommandType = CommandType.Text;
 			adaptersql = new SqlDataAdapter();
 			adaptersql.InsertCommand = command;
 			command.ExecuteNonQuery();
+
 			sql = "SELECT * FROM quizTbl";
 			command = new SqlCommand(sql, connection);
 			command.CommandType = CommandType.Text;
@@ -35,10 +66,27 @@ namespace PRACTICELANG
 			command.ExecuteNonQuery();
 			dset = new DataSet();
 			adaptersql.Fill(dset, "quizTbl");
+			dataGridView1.DataSource = dset.Tables[0];
+
+			dset = new DataSet();
+			adaptersql.Fill(dset, "quizTbl");
+
+			companynameTxtbox.Clear();
+			employeecodeTxtbox.Clear();
+			employeenameTxtbox.Clear();
+			departmentTxtbox.Clear();
+			cutoffTxtbox.Clear();
+			payperiodTxtbox.Clear();
+			honorariumTxtbox.Clear();
+			rateperhrTxtbox.Clear();
+			hoursperdayTxtbox.Clear();
+			overtimehrsTxtbox.Clear();
+			noabsencesTxtbox.Clear();
+			nooftardyTxtbox.Clear();
 
 			connection.Close();
 		}
-
+		//stringdatabase
 		String connectionString = null;
 		SqlConnection connection;
 		SqlCommand command;
@@ -54,10 +102,10 @@ namespace PRACTICELANG
 		private void calculateBtn_Click(object sender, EventArgs e)
 		{
 			//basic pay
-			rateofhr = Convert.ToDouble(rateperhrTxtbox.Text);
-			payday = Convert.ToDouble(hoursperdayTxtbox.Text);
-			basicpay = (rateofhr * payday);
-			basicpayTxtbox.Text = basicpay.ToString("c");
+			rateofhr = Convert.ToDouble(rateperhrTxtbox.Text); //inputs
+			payday = Convert.ToDouble(hoursperdayTxtbox.Text); //inputs
+			basicpay = (rateofhr * payday); //calculation
+			basicpayTxtbox.Text = basicpay.ToString("c"); //displaying the result in the textbox(OUTPUTS)
 
 			//overtime
 			overtimehrs = Convert.ToDouble(overtimehrsTxtbox.Text);
@@ -78,7 +126,7 @@ namespace PRACTICELANG
 			honor = Convert.ToDouble(honorariumTxtbox.Text);
 			gross = (basicpay + overtime + honor);
 			grossearningsTxtbox.Text = gross.ToString("c");
-			//SSS/philhealth
+			//SSS/philhealth(IF/ELSE/IF)
 			if (gross > 0 && gross <= 20000)
 			{
 				sss_contrib = 125.75;
@@ -127,6 +175,7 @@ namespace PRACTICELANG
 		{
 
 			InitializeComponent();
+			//DATABASE CONNECTION
 			// connectionString = "Data Source=C203-06; Initial Catalog=MidtermDB; user id=SA; password=B1Admin123@; TrustServerCertificate=True";
 			//connectionString = "Data Source=C203-06; Initial Catalog=MidtermDB; user id=SA; password=B1Admin123@; TrustServerCertificate=True";
 			connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=MidtermDB;Integrated Security=True;";
@@ -135,10 +184,36 @@ namespace PRACTICELANG
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			//fixed constant
 			hdmf = 100;
 			hdmfTxtbox.Text = hdmf.ToString("c");
 
-			
+			connection.Open();
+			sql = "SELECT * FROM quizTbl";
+			command = new SqlCommand(sql, connection);
+			command.CommandType = CommandType.Text;
+			adaptersql = new SqlDataAdapter();
+			adaptersql.SelectCommand = command;
+			command.ExecuteNonQuery();
+			dset = new DataSet();
+			adaptersql.Fill(dset, "quizTbl");
+			dataGridView1.DataSource = dset.Tables[0];
+
+			companynameTxtbox.Clear();
+			employeecodeTxtbox.Clear();
+			employeenameTxtbox.Clear();
+			departmentTxtbox.Clear();
+			cutoffTxtbox.Clear();
+			payperiodTxtbox.Clear();
+			honorariumTxtbox.Clear();
+			rateperhrTxtbox.Clear();
+			hoursperdayTxtbox.Clear();
+			overtimehrsTxtbox.Clear();
+			noabsencesTxtbox.Clear();
+			nooftardyTxtbox.Clear();
+
+			connection.Close();
+
 		}
 	}
 }
